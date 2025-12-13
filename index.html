@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~*~ TALK TO A BUTT ~*~</title>
+<style>
+  
+  body {
+    background-color: #000000;
+    
+    background-image: 
+      radial-gradient(white 1px, transparent 0),
+      radial-gradient(white 1px, transparent 0);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    color: #00FF00;
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #0000FF;
+    text-decoration: underline;
+  }
+  a:visited {
+    color: #551A8B;
+  }
+  a:active {
+    color: #FF0000;
+  }
+  a:hover {
+    cursor: help;
+    background-color: yellow;
+  }
+
+  .container {
+    width: 800px;
+    max-width: 95%;
+    margin: 0 auto;
+    background-color: #C0C0C0; /* winjoes */
+    border: 4px outset #FFFFFF;
+    padding: 5px;
+  }
+
+  /* headern */
+  .header {
+    text-align: center;
+    background: #000080;
+    color: yellow;
+    border: 3px inset #C0C0C0;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+    text-shadow: 2px 2px #FF0000;
+    margin: 5px;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+
+  /* markee */
+  .marquee-container {
+    background-color: #000000;
+    color: #FF00FF;
+    border: 2px solid #FFFF00;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .marquee-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+  }
+
+  /* Layout Table Simulation */
+  .content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .sidebar {
+    flex: 1;
+    min-width: 150px;
+    background: #808080;
+    border: 2px inset white;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .main-area {
+    flex: 3;
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px inset white;
+    padding: 15px;
+    text-align: center;
+  }
+
+  /* The Butt Visual */
+  .the-butt {
+    width: 200px;
+    height: 160px;
+    margin: 20px auto;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  
+  .the-butt:active {
+    transform: scale(0.95);
+  }
+
+  .cheek {
+    width: 100px;
+    height: 140px;
+    background: #ffccaa;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    border: 3px solid #000;
+  }
+
+  .cheek.left {
+    left: 10px;
+    transform: rotate(-5deg);
+    z-index: 1;
+  }
+  
+  .cheek.right {
+    right: 10px;
+    transform: rotate(5deg);
+    z-index: 1;
+  }
+
+  .crack {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    bottom: 30px;
+    width: 4px;
+    background: rgba(0,0,0,0.1);
+    transform: translateX(-50%);
+    z-index: 2;
+    border-radius: 50%;
+  }
+
+  /* Chat Box */
+  .chat-interface {
+    border: 2px solid #000080;
+    background: #E0E0E0;
+    padding: 5px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .chat-log {
+    height: 150px;
+    background: white;
+    border: 2px inset #808080;
+    overflow-y: scroll;
+    text-align: left;
+    padding: 5px;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .user-msg { color: blue; }
+  .butt-msg { color: red; font-weight: bold; }
+
+  input[type="text"] {
+    width: 70%;
+    border: 2px inset #808080;
+  }
+
+  button.retro-btn {
+    background: #C0C0C0;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  button.retro-btn:active {
+    border-top: 2px solid #404040;
+    border-left: 2px solid #404040;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+  }
+
+  /* Blink Animation */
+  .blink {
+    animation: blinker 1s linear infinite;
+    color: red;
+    font-weight: bold;
+  }
+
+  @keyframes blinker {
+    50% { opacity: 0; }
+  }
+
+  /* Footer Stuff */
+  .counter {
+    background: black;
+    color: red;
+    font-family: "Courier New", monospace;
+    padding: 2px 5px;
+    border: 2px inset #808080;
+    letter-spacing: 3px;
+    display: inline-block;
+  }
+
+  .divider-img {
+    width: 90%;
+    height: 4px;
+    background: linear-gradient(to right, transparent, red, orange, yellow, green, blue, indigo, violet, transparent);
+    margin: 10px auto;
+  }
+
+  .webring {
+    border: 2px ridge #C0C0C0;
+    padding: 5px;
+    margin-top: 20px;
+    font-size: 10px;
+  }
+
+  /* Construction Sign */
+  .construction {
+    background: repeating-linear-gradient(
+      45deg,
+      #FFFF00,
+      #FFFF00 10px,
+      #000000 10px,
+      #000000 20px
+    );
+    width: 100%;
+    height: 20px;
+    margin: 10px 0;
+    border: 1px solid black;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="header">
+    <h1>Welcome to TalkToAButt.site</h1>
+    <p>~*~ The #1 Place on the Info Superhighway to converse with a Gluteus Maximus ~*~</p>
+  </div>
+
+  <div class="marquee-container">
+    <div class="marquee-content">
+      ++ WELCOME WEB SURFERS ++ SIGN THE GUESTBOOK ++ DON'T FORGET TO BOOKMARK US (CTRL+D) ++ NEW UPDATE FOR NETSCAPE NAVIGATOR 4.0 ++ UNDER CONSTRUCTION ++
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+      <p><b>MENU</b></p>
+      <hr>
+      <ul style="list-style-type: square; text-align: left; padding-left: 20px;">
+        <li><a href="#" onclick="alert('Link broken! Email webmaster!')">Home</a></li>
+        <li><a href="#" onclick="alert('Butt pics loading... (Estimated time: 4 hours)')">Gallery</a></li>
+        <li><a href="#" onclick="alert('Geocities shut down :(')">Webring</a></li>
+        <li><a href="#" onclick="alert('E-mail: webmaster@talktoabutt.com')">Email Me</a></li>
+        <li><a href="#" onclick="alert('You are visitor #1,337!')">Guestbook</a></li>
+        <li><a href="#" onclick="alert('Why did you click this?')">Links</a></li>
+      </ul>
+      <br>
+      <p class="blink">NEW!</p>
+      <p>Chat With Butt</p>
+      
+      <br><br>
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSIzMSIgdmlld0JveD0iMCAwIDg4IDMxIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0wIDBoODh2MzFIMHoiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMiAyaDg0djI3SDJ6Ii8+PHBhdGggZmlsbD0iI0MwQzBDMCIgZD0iTTIgMmgydjI3SDJ6TTg0IDJoMnYyN2gtMnoiLz48cGF0aCBmaWxsPSIjRkYwMCIgZD0iTTcgN2gxNHYxN0g3ek0yNSA3aDE0djE3SDI1ek00MyA3aDE0djE3SDQzek02MSA3aDE0djE3SDYxeiIvPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0xMiA5aDR2MTNoLTR6TTMwIDloNHYxM2gtNHpNMzIgMTNoMnY1aC0yek00OCA5aDR2MTNoLTR6TTUwIDloNHYxaC00ek01MCAxM2g0djFoLTR6TTUwIDE3aDR2MWgtNHpNNTYgMTNoMnY1aC0yek02NiA5aDR2MTNoLTR6Ii8+PC9nPjwvc3ZnPg==" alt="Get Netscape Now">
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-area">
+      <div class="construction"></div>
+      <h2 style="font-family: 'Comic Sans MS'; color: blue;">~ HELLO WORLD ~</h2>
+      <p>Welcome to my homepage. This is a place where you can talk to a butt.</p>
+      
+      <div class="the-butt" id="theButt" onclick="pokeButt()">
+        <div class="cheek left"></div>
+        <div class="cheek right"></div>
+        <div class="crack"></div>
+      </div>
+      
+      <p><i>(Click the butt to poke it)</i></p>
+
+      <div class="chat-interface">
+        <div style="background: navy; color: white; padding: 2px; font-weight: bold; text-align: left;">Chat w/ Butt [Connected at 28.8kps]</div>
+        <div class="chat-log" id="chatLog">
+          <div class="butt-msg">&lt;BUTT&gt; Hello. I am a butt.</div>
+        </div>
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <input type="text" id="userIn" placeholder="Type here..." onkeypress="handleKeyPress(event)">
+          <button class="retro-btn" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+
+      <br>
+      <div class="divider-img"></div>
+      <h3>Awards</h3>
+      <div style="font-size: 30px;">🥇 🏆 💾</div>
+      <p style="font-size: small;">Rated "Cool Site of the Day" by somebody's mom.</p>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; margin-top: 20px; color: white; font-size: 12px;">
+    <p>You are visitor number:</p>
+    <div class="counter">041999</div>
+    <br><br>
+    <p>Best viewed with Internet Explorer at 800x600 resolution.</p>
+    <p>&copy; 1999 TalkToAButt.com - All Rights Reserved.</p>
+    <center>
+      <div class="webring">
+        [ <a href="#">Previous 5 Sites</a> | <a href="#">Previous</a> | <a href="#">Next</a> | <a href="#">Next 5 Sites</a> | <a href="#">Random Site</a> ]
+        <br>
+        Part of the <b>WEIRD BODY PARTS</b> WebRing
+      </div>
+    </center>
+  </div>
+
+</div>
+
+<script>
+  // Very advanced AI (Artificial Ignorance) for the butt response
+  const buttResponses = [
+    "Pffft.",
+    "Toot.",
+    "*Rumble*",
+    "I am behind you.",
+    "Do these pixels make me look big?",
+    "Please do not pinch the screen.",
+    "BRB, gotta sit down.",
+    "Pffffffffffffffft.",
+    "Have you seen my friend, The Chair?",
+    "Whatever.",
+    "Talk to the hand... wait, I don't have hands.",
+    "*Squelch*",
+    "ASL?"
+  ];
+
+  const chatLog = document.getElementById('chatLog');
+  const userIn = document.getElementById('userIn');
+
+  function pokeButt() {
+    const butt = document.getElementById('theButt');
+    butt.style.transform = "scale(0.9) rotate(5deg)";
+    setTimeout(() => {
+      butt.style.transform = "scale(1) rotate(0deg)";
+    }, 150);
+    
+    addMessage("SYSTEM", "You poked the butt.");
+    setTimeout(() => {
+      respond();
+    }, 500);
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  }
+
+  function sendMessage() {
+    const txt = userIn.value.trim();
+    if (txt === "") return;
+
+    addMessage("YOU", txt);
+    userIn.value = "";
+    
+    // Simulate dial-up lag or "thinking"
+    setTimeout(() => {
+      respond();
+    }, 800 + Math.random() * 1000);
+  }
+
+  function respond() {
+    const randomIdx = Math.floor(Math.random() * buttResponses.length);
+    const reply = buttResponses[randomIdx];
+    addMessage("BUTT", reply);
+  }
+
+  function addMessage(user, text) {
+    const div = document.createElement('div');
+    if (user === "BUTT") {
+      div.className = "butt-msg";
+      div.innerHTML = "&lt;BUTT&gt; " + text;
+    } else if (user === "YOU") {
+      div.className = "user-msg";
+      div.innerHTML = "&lt;GUEST&gt; " + text;
+    } else {
+      div.style.color = "gray";
+      div.style.fontStyle = "italic";
+      div.innerText = "*** " + text;
+    }
+    chatLog.appendChild(div);
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
