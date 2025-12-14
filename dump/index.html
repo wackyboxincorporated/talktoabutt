@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~*~ THE DUMP - RESTROOM FACILITIES ~*~</title>
+<style>
+  body {
+    background-color: #1a0f00; /* Dark brown/black */
+    color: #ccffcc; /* Sickly green text */
+    font-family: "Courier New", Courier, monospace;
+    background-image: 
+      linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), 
+      linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  a { color: #ffff00; text-decoration: none; }
+  a:hover { background-color: #ff0000; color: white; cursor: crosshair; }
+
+  .container {
+    width: 650px;
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: #4d2600; /* Poop brown */
+    border: 6px ridge #804000;
+    padding: 10px;
+    box-shadow: 10px 10px 0px #000;
+  }
+
+  .header {
+    background: #000;
+    border: 2px dashed #ffff00;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: "Impact", sans-serif;
+    color: #ff6600;
+    font-size: 3rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px #ffff00;
+  }
+
+  /* The Machine Interface */
+  .toilet-zone {
+    background: #c0c0c0; /* Stainless steel / ceramic vibe */
+    border: 3px inset white;
+    padding: 20px;
+    margin: 20px 0;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    box-shadow: inset 0 0 20px #000;
+  }
+
+  .plumbing-diagram {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-bottom: 15px;
+  }
+
+  /* Tank Visualization */
+  .tank-container {
+    width: 60px;
+    height: 100px;
+    border: 4px solid #444;
+    background: #222;
+    position: relative;
+  }
+  
+  .water-level {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90%; /* Start full */
+    background: linear-gradient(to bottom, #00ffff, #0000ff);
+    transition: height 0.5s ease-in;
+  }
+  
+  .water-level.draining {
+    height: 0% !important;
+    transition: height 2s ease-out; /* Drains fast */
+  }
+  
+  .water-level.refilling {
+    height: 90% !important;
+    transition: height 5s linear; /* Refills slow */
+  }
+
+  .pipe-connector {
+    height: 20px;
+    width: 100px;
+    background: #777;
+    border-top: 2px solid #aaa;
+    border-bottom: 2px solid #333;
+    margin-bottom: 20px;
+  }
+
+  /* The Big Red Button */
+  .flush-btn {
+    background: red;
+    color: white;
+    font-family: "Arial Black", sans-serif;
+    font-size: 24px;
+    border-top: 4px solid #ff9999;
+    border-left: 4px solid #ff9999;
+    border-right: 4px solid #660000;
+    border-bottom: 4px solid #660000;
+    padding: 15px 30px;
+    cursor: pointer;
+    text-shadow: 1px 1px black;
+    margin-top: 10px;
+    transition: all 0.1s;
+    outline: none;
+    position: relative;
+  }
+
+  .flush-btn:active {
+    border-top: 4px solid #660000;
+    border-left: 4px solid #660000;
+    border-right: 4px solid #ff9999;
+    border-bottom: 4px solid #ff9999;
+    transform: translateY(4px);
+  }
+
+  .flush-btn:disabled {
+    background: #550000;
+    color: #888;
+    cursor: not-allowed;
+    border-color: #330000;
+    transform: translateY(4px);
+  }
+
+  /* The Terminal Screen */
+  .status-screen {
+    background: black;
+    color: #33ff33;
+    font-family: "Lucida Console", Monaco, monospace;
+    width: 90%;
+    height: 100px;
+    border: 4px inset #555;
+    margin-bottom: 15px;
+    padding: 5px;
+    font-size: 12px;
+    text-align: left;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 5px #33ff33;
+  }
+  
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(51, 255, 51, 0.1);
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes scan { 0% {top: -5%;} 100% {top: 105%;} }
+
+  .marquee-wrapper {
+    background: yellow;
+    color: black;
+    font-weight: bold;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .back-link {
+    margin-top: 30px;
+    font-size: 18px;
+    display: inline-block;
+    border: 1px solid white;
+    padding: 5px;
+    background: black;
+  }
+
+  /* Shake animation for dump */
+  .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
+  @keyframes shake {
+    10%, 90% { transform: translate3d(-2px, 1px, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, -2px, 0); }
+    40%, 60% { transform: translate3d(4px, 2px, 0); }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="header">
+    <h1>THE DUMP</h1>
+    <p style="color: white; font-size: 10px;">PART OF THE TALKTOABUTT.SITE NETWORK</p>
+  </div>
+
+  <div class="marquee-wrapper">
+    <marquee scrollamount="12">WARNING: HIGH PRESSURE SYSTEM *** DO NOT FLUSH PAPER TOWELS *** EMPLOYEES MUST WASH HANDS *** SECTOR 7G ***</marquee>
+  </div>
+
+  <div class="toilet-zone" id="toiletZone">
+    
+    <!-- System Viz -->
+    <div class="plumbing-diagram">
+        <div style="text-align:center; color:black; font-weight:bold; font-size:10px;">
+            MAIN VALVE
+            <div style="width:40px; height:40px; border-radius:50%; background:red; border:2px solid black; margin:5px auto;" id="valveLight"></div>
+        </div>
+        <div class="pipe-connector"></div>
+        <div style="text-align:center; color:black; font-weight:bold; font-size:10px;">
+            RESERVOIR
+            <div class="tank-container">
+                <div class="water-level" id="waterLevel"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-screen" id="terminal">
+      <div>> SYSTEM BOOT... OK</div>
+      <div>> HYDRAULICS... OK</div>
+      <div>> AWAITING INPUT_</div>
+    </div>
+    <div class="scan-line"></div>
+
+    <!-- The actual interactive element -->
+    <button class="flush-btn" id="flushBtn" onclick="initiateSequence()">INITIATE FLUSH</button>
+    
+  </div>
+
+  <div style="border: 2px solid white; padding: 5px; margin-top: 20px; background: black;">
+    <p style="animation: blinker 1s infinite; color: red;">⚠ UNDER CONSTRUCTION ⚠</p>
+    <pre style="color: grey; font-size: 10px;">
+   _____
+  /  |  \
+ /   |   \    (Plumber graphic
+|    |    |    still loading...)
+|    |    |
+ \   |   /
+  \__|__/
+    </pre>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">☜ RETURN TO TALK TO A BUTT</a>
+  </div>
+
+  <br><br>
+  <small>&copy; 1999 THE DUMP INC. | <a href="#">Guestbook</a> | <a href="#">Email Webmaster</a></small>
+
+</div>
+
+<!-- Audio Source -->
+<audio id="dumpSound" preload="auto">
+    <source src="https://talktoabutt.site/doorknob.mp3" type="audio/mpeg">
+    <source src="https://talktoabutt.site/doorknob.ogg" type="audio/ogg">
+</audio>
+
+<script>
+  const terminal = document.getElementById('terminal');
+  const toiletZone = document.getElementById('toiletZone');
+  const dumpSound = document.getElementById('dumpSound');
+  const flushBtn = document.getElementById('flushBtn');
+  const waterLevel = document.getElementById('waterLevel');
+  const valveLight = document.getElementById('valveLight');
+  
+  let isCycling = false;
+
+  function log(text) {
+    const line = document.createElement('div');
+    line.textContent = "> " + text;
+    terminal.appendChild(line);
+    // Keep only last 5 lines
+    while(terminal.children.length > 5) {
+        terminal.removeChild(terminal.firstChild);
+    }
+  }
+
+  function initiateSequence() {
+    if (isCycling) return;
+    isCycling = true;
+    
+    // Disable UI
+    flushBtn.disabled = true;
+    flushBtn.innerText = "CYCLE ACTIVE";
+    valveLight.style.background = "#00ff00"; // Green for active
+    
+    // Audio
+    dumpSound.currentTime = 0;
+    dumpSound.play().catch(e => log("ERR: AUDIO DRIVER FAIL"));
+
+    // Visuals Start
+    log("VALVE OPENING...");
+    toiletZone.classList.add("shake");
+    waterLevel.className = "water-level draining"; // Trigger drain CSS
+
+    // Sequence Timing
+    setTimeout(() => {
+        log("PRESSURE RISING...");
+    }, 1000);
+
+    setTimeout(() => {
+        log("DISCHARGE COMPLETE.");
+        toiletZone.classList.remove("shake");
+    }, 2500);
+
+    // Refill Phase
+    setTimeout(() => {
+        valveLight.style.background = "red"; // Closed
+        log("REFILLING TANK...");
+        waterLevel.className = "water-level refilling"; // Trigger refill CSS
+    }, 3000);
+
+    // Ready Phase
+    setTimeout(() => {
+        log("SYSTEM READY.");
+        flushBtn.disabled = false;
+        flushBtn.innerText = "INITIATE FLUSH";
+        isCycling = false;
+    }, 8000); // 5s refill time matches CSS transition
+  }
+</script>
+
+</body>
+</html>
